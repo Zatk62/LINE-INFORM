@@ -4,26 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>SQE support Mobile Pro - Standalone System v3.0</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- เชื่อมต่อไฟล์ Manifest -->
-<link rel="manifest" href="manifest.json">
-
-<!-- ตั้งค่าสีแถบสถานะ (Status Bar) สำหรับ Chrome บน Android -->
-<meta name="theme-color" content="#1d4ed8">
-
-<!-- ตั้งค่าสำหรับ iOS (iPhone) ให้เป็นแบบ Full Screen -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SQE Mobile">
-
-<!-- ไอคอนสำหรับ iPhone -->
-<link rel="apple-touch-icon" href="icon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1d4ed8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SQE Mobile">
+    <link rel="apple-touch-icon" href="icon.svg">
 </head>
 <body>
-<header class="app-header">
+  <header class="app-header">
     <div class="header-inner">
         <div class="brand">
             <div class="brand-icon">🛡️</div>
@@ -186,7 +179,7 @@
                 <div class="banner-top">
                     <div>
                         <span class="step-badge step-green">Step 2: Report Output</span>
-                        <h2>✨ รายงานผลการตรวจสอบ QA/QC</h2>
+                        <h2>✨ รายงานผลการ Support line</h2>
                     </div>
                     <button class="btn-back" onclick="switchPage('form')">⬅ กลับไปแก้ไขฟอร์ม</button>
                 </div>
@@ -233,7 +226,7 @@
                 <div class="banner-top">
                     <div>
                         <span class="step-badge step-purple">Step 3: Logbook</span>
-                        <h2>📚 ฐานข้อมูลประวัติการตรวจสอบ QA/QC</h2>
+                        <h2>📚 ฐานข้อมูลประวัติการ Support</h2>
                     </div>
                     <button class="btn-export-csv" onclick="exportCSV()">📥 Export CSV</button>
                 </div>
@@ -309,14 +302,12 @@
                     <button onclick="runAiSimulation('JP_SPEC')">🇯🇵 สเปกญี่ปุ่น / LINE Alert</button>
                 </div>
              <div id="aiResultBox" class="ai-result hidden"></div>
-
-<!-- เพิ่มปุ่มนี้เข้าไป -->
-<button id="btnApplyAi" class="btn-apply-ai hidden" onclick="applyAiResult()">
-    ✅ นำข้อความนี้ไปใช้ (Apply to Form)
-</button>
+                         <button id="btnApplyAi" class="btn-apply-ai hidden" onclick="applyAiResult()">✅ นำข้อความนี้ไปใช้ (Apply to Form)</button>
         </div>
     </div>
-    <div id="toastContainer" class="toast-container"></div>
-    <script src="script.js"></script>
+</div>
+
+<div id="toastContainer" class="toast-container"></div>
+<script src="script.js"></script>
 </body>
 </html>
