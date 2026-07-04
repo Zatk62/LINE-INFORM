@@ -1,37 +1,47 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 1. พื้นหลังแอป (ไล่เฉดสีน้ำเงินล้ำยุค) -->
-  <rect width="512" height="512" rx="114" fill="url(#bg_gradient)"/>
+  <!-- 1. พื้นหลังแอป (Deep Navy Blue Gradient) -->
+  <rect width="512" height="512" rx="120" fill="url(#thai_navy_grad)"/>
   
-  <!-- 2. ตกแต่งพื้นหลังด้วยเส้น Grid จางๆ (Engineering Look) -->
-  <path d="M0 128H512M0 256H512M0 384H512M128 0V512M256 0V512M384 0V512" stroke="white" stroke-opacity="0.05" stroke-width="2"/>
+  <!-- 2. ลายไทยจางๆ ในพื้นหลัง (Thai Pattern Overlay) -->
+  <path d="M256 40C280 100 350 120 400 120M256 472C232 412 162 392 112 392" stroke="white" stroke-opacity="0.03" stroke-width="4"/>
 
-  <!-- 3. กลุ่มตัวอักษร SQE แบบ Stylized -->
-  <g filter="url(#glow)">
-    <!-- ตัว S (Sleek Curve) -->
-    <path d="M120 200C120 180 140 160 170 160H210V220H160C140 220 120 240 120 260V300C120 330 140 350 170 350H220V290H170C150 290 120 270 120 260" stroke="#E2E8F0" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 3. กลุ่มอักษร SQE สีทอง (Thai Contemporary Style) -->
+  <g filter="url(#gold_glow)">
+    <!-- ตัว S (Thai Motif Curve) -->
+    <path d="M110 240C110 200 130 170 170 170C210 170 230 200 230 220C230 250 170 270 170 300C170 320 190 350 230 350C250 350 270 340 280 320" 
+          stroke="url(#gold_grad)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
     
-    <!-- ตัว Q (เป้าเล็ง Quality) -->
-    <circle cx="280" cy="256" r="85" stroke="#60A5FA" stroke-width="28"/>
-    <path d="M335 315L375 370" stroke="#60A5FA" stroke-width="28" stroke-linecap="round"/>
+    <!-- ตัว Q (The Eye of Quality) -->
+    <ellipse cx="270" cy="260" rx="75" ry="85" stroke="url(#gold_grad)" stroke-width="26"/>
+    <path d="M315 325C340 360 380 380 410 375" stroke="url(#gold_grad)" stroke-width="26" stroke-linecap="round"/>
     
-    <!-- ตัว E (Geometric structure) -->
-    <path d="M390 160H460M390 256H440M390 350H460M390 160V350" stroke="#34D399" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- ตัว E (Traditional Line Structure) -->
+    <path d="M380 175H460M385 260H445M380 345H460M385 175V345" 
+          stroke="url(#gold_grad)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
-  <!-- 4. ตกแต่งจุดประสง (Tech Dots) -->
-  <circle cx="460" cy="160" r="8" fill="#34D399"/>
-  <circle cx="375" cy="370" r="8" fill="#60A5FA"/>
+  <!-- 4. ประดับจุด "หยาดน้ำ" แบบไทย (Thai Drop Motif) -->
+  <circle cx="460" cy="175" r="10" fill="#FDE047"/>
+  <circle cx="110" cy="240" r="8" fill="#FDE047" fill-opacity="0.6"/>
 
-  <!-- การตั้งค่าสีและเอฟเฟกต์ -->
+  <!-- การตั้งค่าสีทองและน้ำเงิน -->
   <defs>
-    <linearGradient id="bg_gradient" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+    <!-- ไล่เฉดสีน้ำเงินเข้ม -->
+    <linearGradient id="thai_navy_grad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#0F172A"/>
-      <stop offset="0.5" stop-color="#1E293B"/>
       <stop offset="1" stop-color="#020617"/>
     </linearGradient>
     
-    <filter id="glow" x="80" y="120" width="450" height="300" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
+    <!-- ไล่เฉดสีทองพรีเมียม -->
+    <linearGradient id="gold_grad" x1="110" y1="170" x2="460" y2="375" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FDE047"/> <!-- สีทองสว่าง -->
+      <stop offset="0.5" stop-color="#D4AF37"/> <!-- สีทองเหลือง -->
+      <stop offset="1" stop-color="#B45309"/> <!-- สีทองแดง -->
+    </linearGradient>
+
+    <!-- เอฟเฟกต์แสงทองเรืองรอง -->
+    <filter id="gold_glow" x="70" y="140" width="430" height="280" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
   </defs>
