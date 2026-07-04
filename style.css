@@ -378,3 +378,729 @@ body.light-mode label {
     opacity: 0.8;
     margin-left: 2px;
 }
+/* คอนเทนเนอร์หลักแบบแถวเดียว */
+.compact-action-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 คอลัมน์เท่ากัน */
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.4);
+    padding: 10px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 15px;
+}
+
+.action-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* ปรับ Label ให้เล็กและสะอาดตา */
+.action-item label {
+    font-size: 10px !important;
+    font-weight: 800;
+    color: #94a3b8 !important;
+    letter-spacing: 0.05em;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.action-item label .icon {
+    font-size: 12px;
+}
+
+/* ปรับแต่ง Select และ Input ให้เล็กแต่กดง่าย */
+.mini-select, .mini-input {
+    width: 100%;
+    height: 38px; /* ความสูงมาตรฐานที่นิ้วกดง่าย */
+    background: #020617 !important;
+    border: 1px solid #334155 !important;
+    border-radius: 10px !important;
+    color: #fff !important;
+    font-size: 0.75rem !important;
+    font-weight: 600;
+    padding: 0 8px !important;
+    outline: none;
+    appearance: none; /* ลบลูกศรเดิมของเบราว์เซอร์ */
+    cursor: pointer;
+}
+
+/* เพิ่มลูกศร Custom สำหรับ Select */
+.action-item {
+    position: relative;
+}
+
+/* ปรับ Inspector Input ให้ดูเป็นระเบียบ */
+.mini-input {
+    cursor: text;
+}
+
+.mini-input::placeholder {
+    color: #475569;
+}
+
+/* เมื่อจอเล็กมาก (Small Mobile) */
+@media (max-width: 360px) {
+    .compact-action-bar {
+        gap: 5px;
+        padding: 8px;
+    }
+    .mini-select, .mini-input {
+        font-size: 0.7rem !important;
+        padding: 0 4px !important;
+    }
+    .action-item label {
+        font-size: 9px !important;
+    }
+}
+/* คอนเทนเนอร์หลักสำหรับตัวเลข 3 ช่อง */
+.compact-qty-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* แบ่ง 3 ช่องเท่ากัน */
+    gap: 10px;
+    background: rgba(15, 23, 42, 0.4);
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 15px;
+}
+
+.qty-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* หัวข้อ (Icon + Label) */
+.qty-item label {
+    font-size: 10px !important;
+    font-weight: 900;
+    color: #94a3b8 !important; /* สีเทาฟ้าแบบในภาพ */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0 !important;
+    letter-spacing: 0.03em;
+}
+
+.qty-item label .icon {
+    font-size: 11px;
+}
+
+/* ช่องกรอกตัวเลขสไตล์ภาพตัวอย่าง */
+.mini-qty-input {
+    width: 100%;
+    height: 42px; /* สูงขึ้นเล็กน้อยเพื่อให้กดง่าย */
+    background: #020617 !important;
+    border: 1px solid #334155 !important;
+    border-radius: 12px !important;
+    color: #fff !important;
+    font-size: 1rem !important;
+    font-weight: 800;
+    text-align: center; /* ตัวเลขอยู่ตรงกลาง */
+    outline: none;
+    -moz-appearance: textfield; /* ลบปุ่มลูกศรใน Firefox */
+}
+
+/* ลบปุ่มลูกศรขึ้นลงใน Chrome/Safari */
+.mini-qty-input::-webkit-outer-spin-button,
+.mini-qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* สีพิเศษสำหรับ OK และ NG */
+.text-green {
+    color: #34d399 !important; /* สีเขียวสว่าง */
+}
+
+.text-red {
+    color: #fb7185 !important; /* สีแดงอมชมพู */
+}
+
+/* ปรับแต่งเมื่อจอเล็กมาก */
+@media (max-width: 360px) {
+    .compact-qty-bar {
+        gap: 6px;
+        padding: 8px;
+    }
+    .mini-qty-input {
+        font-size: 0.9rem !important;
+    }
+}
+.btn-apply-ai {
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px;
+    background: linear-gradient(90deg, #059669, #10b981);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transition: transform 0.1s;
+}
+
+.btn-apply-ai:active {
+    transform: scale(0.98);
+}
+
+/* ปรับ ai-result ให้ขอบล่างโค้งรับกับปุ่ม */
+.ai-result {
+    border-bottom: 1px solid #3b82f6;
+    margin-bottom: 0;
+}
+/* --- ปรับปรุง Header ให้ย่อตัวแบบ Proportional (ไม่ซ้อนทับ) --- */
+
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    padding: 0.5rem 0.75rem;
+    height: 65px; /* บังคับความสูงคงที่เพื่อความระเบียบ */
+    display: flex;
+    align-items: center;
+}
+
+.header-inner {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap; /* ห้ามขึ้นบรรทัดใหม่ */
+    gap: 8px; /* ระยะห่างขั้นต่ำระหว่างกลุ่มซ้ายและขวา */
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 auto; /* ให้พื้นที่ส่วนนี้ยืดหยุ่นที่สุด */
+    min-width: 0; /* สำคัญ: ยอมให้ลูกข้างในหดตัวได้ */
+}
+
+.brand-icon {
+    width: clamp(30px, 8vw, 40px); /* ย่อตามขนาดจออัตโนมัติ */
+    height: clamp(30px, 8vw, 40px);
+    flex-shrink: 0; /* ห้ามถูกบีบจนเบี้ยว */
+}
+
+.brand-title {
+    /* ใช้ clamp เพื่อให้ขนาดฟอนต์ลดลงตามความกว้างจอโดยไม่ต้องรอ Media Query */
+    font-size: clamp(0.85rem, 4vw, 1.1rem); 
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* ถ้าชื่อยาวเกินให้เป็น ... แทนการทับคนอื่น */
+}
+
+#pageSubtitle {
+    font-size: clamp(0.6rem, 2.5vw, 0.75rem);
+    white-space: nowrap;
+    opacity: 0.7;
+}
+
+/* กลุ่มปุ่มคำสั่งด้านขวา */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0; /* ห้ามถูกบีบจนปุ่มหาย */
+}
+
+/* ปุ่มสลับโหมด */
+.btn-theme-toggle {
+    width: clamp(32px, 8vw, 38px);
+    height: clamp(32px, 8vw, 38px);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ปุ่ม AI */
+.btn-ai-header {
+    padding: 0.4rem clamp(0.4rem, 2vw, 0.8rem);
+    font-size: clamp(0.65rem, 2vw, 0.8rem);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* --- แก้ไข Logic การซ่อนตัวหนังสือเพื่อป้องกันการชนกัน --- */
+
+/* เมื่อหน้าจอเริ่มเล็กลง (Tablet/Mobile L) ให้ซ่อน Subtitle ก่อนเพื่อน */
+@media (max-width: 550px) {
+    #pageSubtitle {
+        display: none; /* ซ่อนคำบรรยายด้านล่างเพื่อเพิ่มที่ว่างให้ปุ่ม */
+    }
+}
+
+/* เมื่อหน้าจอเล็กลงอีก (Mobile M) ให้ซ่อนตัวหนังสือที่ปุ่ม AI */
+@media (max-width: 450px) {
+    .ai-text {
+        display: none; /* เหลือแค่ไอคอน ✨ เพื่อไม่ให้ชนกับชื่อแอป */
+    }
+    .brand-title span {
+        display: none; /* ซ่อนคำว่า "Mobile Pro" ในชื่อแอปถ้าพื้นที่ไม่พอ */
+    }
+}
+
+/* สำหรับมือถือขนาดเล็กมาก */
+@media (max-width: 320px) {
+    .brand-title {
+        max-width: 80px; /* จำกัดความกว้างชื่อเพื่อรักษาปุ่มด้านขวาไว้ */
+    }
+}
+/* คอนเทนเนอร์กลางหน้าจอ */
+.mini-confirm {
+    max-width: 320px !important;
+    text-align: center;
+    padding: 1.5rem !important;
+    border: 1px solid rgba(245, 158, 11, 0.3) !important; /* ขอบสีส้มอ่อนแบบ Warning */
+    animation: zoomIn 0.2s ease-out;
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.confirm-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+}
+
+.mini-confirm h3 {
+    font-size: 1.1rem;
+    color: #fde047;
+    margin-bottom: 0.5rem;
+}
+
+.mini-confirm p {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+/* ปรับแต่งปุ่มใน Confirm */
+.confirm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.btn-confirm-primary {
+    background: linear-gradient(90deg, #2563eb, #4f46e5);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btn-confirm-secondary {
+    background: rgba(30, 41, 59, 0.8);
+    color: #94a3b8;
+    border: 1px solid #475569;
+    padding: 0.75rem;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btn-confirm-primary:active, .btn-confirm-secondary:active {
+    transform: scale(0.95);
+}
+/* คอนเทนเนอร์หลักคุมทุกอย่าง */
+.footer-control-panel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* ระยะห่างระหว่างแถว */
+    margin-top: 15px;
+}
+
+/* แถว Dropdown 3 ช่อง */
+.compact-action-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* แบ่ง 3 ส่วนเท่ากันเป๊ะ */
+    gap: 8px; /* ระยะห่างระหว่างช่อง */
+    width: 100%;
+}
+
+/* ปุ่มกดส่วนท้าย */
+.footer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+/* ตกแต่ง Dropdown ให้ดูโปร */
+.mini-select {
+    width: 100% !important;
+    height: 42px;
+    background: #020617 !important;
+    border: 1px solid #334155 !important;
+    border-radius: 12px !important;
+    color: #fff !important;
+    font-size: 0.75rem !important;
+    font-weight: 700;
+    padding: 0 8px !important;
+    text-overflow: ellipsis; /* ถ้าชื่อยาวจะกลายเป็น ... อัตโนมัติ */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* สไตล์ปุ่มแบบ Wide (เต็มจอ) */
+.btn-save-wide {
+    width: 100%;
+    padding: 12px;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid #475569;
+    color: #34d399; /* สีเขียวสว่าง */
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-generate-wide {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    transition: 0.2s;
+}
+
+/* เอฟเฟกต์ตอนกด */
+.btn-save-wide:active, .btn-generate-wide:active {
+    transform: scale(0.98);
+}
+
+/* ปรับฟอนต์ Label ให้เข้าชุด */
+.action-item label {
+    font-size: 10px !important;
+    font-weight: 900;
+    color: #94a3b8 !important;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+/* --- 1. โทนสีมาตรฐาน (Dark Mode เป็นค่าเริ่มต้น) --- */
+:root {
+    --bg-body: #020617;
+    --bg-header: rgba(15, 23, 42, 0.9);
+    --bg-card: rgba(15, 23, 42, 0.85);
+    --bg-input: #020617;
+    --border-color: rgba(51, 65, 85, 0.6);
+    --text-main: #f8fafc;
+    --text-sub: #94a3b8;
+    --accent-blue: #3b82f6;
+    --nav-bg: rgba(2, 6, 23, 0.95);
+    --glass-blur: blur(16px);
+}
+
+/* --- 2. โทนสีใหม่สำหรับ Light Mode (ขาว-น้ำเงิน) --- */
+body.light-mode {
+    --bg-body: #f1f5f9; /* สีพื้นหลังเทาน้ำเงินอ่อนมากๆ */
+    --bg-header: rgba(255, 255, 255, 0.95);
+    --bg-card: #ffffff; /* การ์ดสีขาวบริสุทธิ์ */
+    --bg-input: #ffffff;
+    --border-color: #cbd5e1; /* ขอบสีเทาอ่อนชัดเจน */
+    --text-main: #0f172a; /* ตัวหนังสือสีน้ำเงินเข้มเกือบดำ */
+    --text-sub: #475569; /* ตัวหนังสือรองสีเทาเข้ม */
+    --accent-blue: #2563eb; /* น้ำเงิน Royal Blue */
+    --nav-bg: rgba(255, 255, 255, 0.98);
+}
+/* --- การปรับแต่งพื้นฐาน --- */
+body {
+    background: var(--bg-body);
+    color: var(--text-main);
+    transition: all 0.3s ease;
+}
+
+.app-header {
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-panel, .stat-box, .toolbar-card, .log-card, .analytics-card, .footer-control-panel, .compact-qty-bar {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-main);
+    box-shadow: body.light-mode ? 0 4px 6px -1px rgba(0, 0, 0, 0.1) : none;
+}
+
+/* --- ช่องกรอกข้อมูล (Inputs & Selects) --- */
+.form-input, .mini-select, .mini-qty-input, .form-textarea, .search-input {
+    background: var(--bg-input) !important;
+    border: 1.5px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+}
+
+body.light-mode .form-input:focus, 
+body.light-mode .mini-select:focus {
+    border-color: var(--accent-blue) !important;
+    background: #f8fafc !important;
+}
+
+/* --- Banner (ปรับไล่เฉดสีให้ดูสว่างขึ้นใน Light Mode) --- */
+body.light-mode .banner-form {
+    background: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
+    border: none;
+}
+
+body.light-mode .banner-output { background: linear-gradient(135deg, #1e40af, #2563eb); }
+body.light-mode .banner-logbook { background: linear-gradient(135deg, #334155, #475569); }
+body.light-mode .banner-analytics { background: linear-gradient(135deg, #1d4ed8, #4c1d95); }
+
+/* --- ปุ่มกด (Buttons) --- */
+body.light-mode .btn-save-wide {
+    background: #f8fafc;
+    border: 1.5px solid #2563eb;
+    color: #2563eb;
+}
+
+body.light-mode .btn-save-wide:hover {
+    background: #eff6ff;
+}
+
+/* --- Bottom Nav --- */
+.bottom-nav {
+    background: var(--nav-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+body.light-mode .nav-btn {
+    color: #64748b;
+}
+
+body.light-mode .nav-btn.active {
+    background: #eff6ff;
+    color: #2563eb;
+    border-color: #dbeafe;
+}
+
+/* --- Labels (หัวข้อ) --- */
+body.light-mode label {
+    color: #1e40af !important; /* หัวข้อสีน้ำเงินเข้มชัดเจน */
+    font-weight: 800;
+}
+
+/* --- รายการด่วน (Presets) --- */
+body.light-mode .preset-card {
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    color: #0f172a;
+}
+
+body.light-mode .preset-card strong {
+    color: #1d4ed8;
+}
+
+/* --- Modal (AI & Confirm) --- */
+body.light-mode .modal-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+}
+
+body.light-mode .ai-result {
+    background: #f8fafc;
+    border-color: #3b82f6;
+    color: #1e293b;
+}
+/* --- ปรับปรุงความโค้งมนให้สวยงาม (Super Rounded Design) --- */
+
+/* 1. ปรับความโค้งของ Dropdown 3 ช่องบน */
+.mini-select {
+    border-radius: 18px !important; /* เพิ่มความโค้งให้นุ่มนวล */
+    height: 45px !important; /* เพิ่มความสูงเล็กน้อยเพื่อให้รับกับความโค้ง */
+    padding: 0 15px !important;
+    border: 1.5px solid var(--border-color) !important;
+    font-weight: 600 !important;
+}
+
+/* 2. ปรับปุ่ม "บันทึกลง Logbook" ให้โค้งมนสวยงาม */
+.btn-save-wide {
+    border-radius: 20px !important; /* โค้งมนกว่าเดิม */
+    padding: 14px !important;
+    border: 1.5px solid #2563eb !important; /* ขอบน้ำเงินในโหมดสว่าง */
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent !important;
+    color: #2563eb !important;
+    transition: all 0.2s ease;
+}
+
+body.light-mode .btn-save-wide:hover {
+    background: rgba(37, 99, 235, 0.05) !important;
+}
+
+/* 3. ปรับปุ่ม "จัดรูปแบบรายงาน" (ปุ่มใหญ่) ให้ดูพรีเมียม */
+.btn-generate-wide {
+    border-radius: 22px !important; /* โค้งมนที่สุดเพื่อบอกว่าเป็นปุ่มหลัก */
+    padding: 16px !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed) !important; /* ไล่เฉดสีให้ดูมีมิติ */
+    box-shadow: 0 8px 20px -4px rgba(79, 70, 229, 0.4) !important; /* เงาฟุ้งๆ นุ่มนวล */
+    border: none !important;
+    color: white !important;
+    margin-top: 5px;
+}
+
+/* 4. ปรับระยะห่างของการ์ดโดยรอบให้สมดุล */
+.footer-control-panel {
+    gap: 15px !important;
+    background: transparent !important; /* ให้ดูกลืนไปกับพื้นหลัง */
+    border: none !important;
+}
+
+.compact-action-grid {
+    gap: 10px !important;
+}
+/* --- แก้ไขตัวเลขสรุปผล (Stats) ให้ชัดเจนในโหมดสว่าง --- */
+
+body.light-mode .stat-box {
+    background: #ffffff !important;
+    border: 1.5px solid #cbd5e1 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* สีหัวข้อ (เช่น TOTAL INSPECTED) */
+body.light-mode .stat-box span {
+    color: #64748b !important; /* สีเทาเข้ม */
+}
+
+/* สีตัวเลข (เช่น 0 pcs) - บังคับให้เป็นสีน้ำเงินเข้ม/ดำ */
+body.light-mode .stat-box strong {
+    color: #0f172a !important; 
+}
+
+/* ปรับสีตัวเลขสถานะเฉพาะ (เขียว/แดง/น้ำเงิน) ให้เข้มขึ้นเพื่อการอ่านที่ง่าย */
+body.light-mode .stat-green strong {
+    color: #059669 !important; /* เขียวเข้ม */
+}
+
+body.light-mode .stat-red strong {
+    color: #dc2626 !important; /* แดงเข้ม */
+}
+
+body.light-mode .stat-blue strong {
+    color: #1d4ed8 !important; /* น้ำเงินเข้ม */
+}
+
+/* แก้ไขตัวเลขในหน้า Logbook (ถ้ามีปัญหาเดียวกัน) */
+body.light-mode .log-card strong {
+    color: #0f172a !important;
+}
+
+body.light-mode .log-card span {
+    color: #475569 !important;
+}
+.toast-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    padding: 12px 20px;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideDownIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+
+.toast.success { border-left: 5px solid #10b981; }
+.toast.info { border-left: 5px solid #3b82f6; }
+.toast.warning { border-left: 5px solid #facc15; }
+
+@keyframes slideDownIn {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.toast.hide {
+    animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: scale(0.95); }
+}
+.skeleton-card {
+    height: 120px;
+    background: linear-gradient(90deg, var(--bg-card) 25%, var(--border-color) 50%, var(--bg-card) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 18px;
+    margin-bottom: 10px;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+.page-view {
+    display: none;
+    opacity: 0;
+    transform: translateX(10px); /* เลื่อนไปทางขวาเล็กน้อยเตรียมไว้ */
+    transition: all 0.3s ease-out;
+}
+
+.page-view.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+    animation: AppSlideIn 0.3s ease-out forwards;
+}
+
+@keyframes AppSlideIn {
+    from { opacity: 0; transform: scale(0.98) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
