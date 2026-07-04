@@ -1,70 +1,14 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- พื้นหลังโค้งมน -->
+  <rect width="512" height="512" rx="120" fill="url(#paint0_linear)"/>
+  <!-- สัญลักษณ์โล่ -->
+  <path d="M256 80L120 140V240C120 330 180 400 256 440C332 400 392 330 392 240V140L256 80Z" fill="white" fill-opacity="0.2"/>
+  <!-- เครื่องหมายถูก -->
+  <path d="M200 260L240 300L320 180" stroke="#34D399" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
   <defs>
-    <!-- 1. พื้นหลังไล่เฉดลึก -->
-    <radialGradient id="bg_grad" cx="50%" cy="40%" r="60%" fx="50%" fy="30%">
-      <stop offset="0%" stop-color="#1a2a3a"/>
-      <stop offset="100%" stop-color="#050a0f"/>
-    </radialGradient>
-
-    <!-- 2. การไล่เฉดสีของวงแหวน Q (Cyan to Orange) -->
-    <linearGradient id="q_ring_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4fd1ed"/>
-      <stop offset="40%" stop-color="#2a829d"/>
-      <stop offset="70%" stop-color="#d97706"/>
-      <stop offset="100%" stop-color="#fbbf24"/>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#7C3AED"/>
     </linearGradient>
-
-    <!-- 3. การไล่เฉดสีโลหะเงิน (Silver Metallic) สำหรับตัวอักษร -->
-    <linearGradient id="silver_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="30%" stop-color="#cbd5e1"/>
-      <stop offset="50%" stop-color="#94a3b8"/>
-      <stop offset="100%" stop-color="#475569"/>
-    </linearGradient>
-
-    <!-- 4. ฟิลเตอร์เรืองแสง (Neon Glow) -->
-    <filter id="glow_effect" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-    </filter>
-
-    <!-- 5. เงาตัวอักษรให้ดูนูน (Drop Shadow) -->
-    <filter id="text_shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.8"/>
-    </filter>
   </defs>
-
-  <!-- วาดพื้นหลังสี่เหลี่ยมมุมมน -->
-  <rect width="512" height="512" rx="80" fill="url(#bg_grad)"/>
-
-  <!-- วาดวงแหวนรูปตัว Q (โครงสร้างหลัก) -->
-  <g filter="url(#glow_effect)">
-    <!-- วงนอกที่บิดเบี้ยวเล็กน้อยตามต้นฉบับ -->
-    <path d="M256 60 C360 60 440 140 440 240 C440 320 380 380 340 400 L380 440 C400 450 420 460 400 475 C360 480 300 450 260 400 C150 400 70 320 70 210 C70 100 150 60 256 60Z" 
-          fill="none" stroke="url(#q_ring_grad)" stroke-width="25" stroke-linecap="round" opacity="0.9"/>
-    
-    <!-- เส้นซ้อนด้านในเพื่อความลึก -->
-    <path d="M256 90 C340 90 400 150 400 240 C400 300 360 350 320 370" 
-          fill="none" stroke="url(#q_ring_grad)" stroke-width="8" stroke-opacity="0.5" stroke-linecap="round"/>
-  </g>
-
-  <!-- กลุ่มตัวอักษร SQE กลางภาพ -->
-  <g filter="url(#text_shadow)">
-    <!-- S -->
-    <path d="M105 245 C105 200 170 190 170 220 C170 235 150 240 135 250 C115 260 115 300 175 305" 
-          fill="none" stroke="url(#silver_grad)" stroke-width="45" stroke-linecap="round"/>
-    
-    <!-- Q (Inner) -->
-    <circle cx="265" cy="255" r="55" fill="none" stroke="url(#silver_grad)" stroke-width="40"/>
-    <path d="M295 295 L340 340" stroke="url(#silver_grad)" stroke-width="40" stroke-linecap="round"/>
-
-    <!-- E -->
-    <path d="M375 200 H445 M375 255 H430 M375 310 H445 M380 200 V310" 
-          fill="none" stroke="url(#silver_grad)" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-
-  <!-- คำว่า SUPPORT ด้านล่าง -->
-  <text x="50%" y="445" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="62" fill="url(#silver_grad)" letter-spacing="8" filter="url(#text_shadow)">
-    SUPPORT
-  </text>
 </svg>
