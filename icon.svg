@@ -1,48 +1,48 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 1. พื้นหลังแอป (Deep Navy Blue Gradient) -->
-  <rect width="512" height="512" rx="120" fill="url(#thai_navy_grad)"/>
-  
-  <!-- 2. ลายไทยจางๆ ในพื้นหลัง (Thai Pattern Overlay) -->
-  <path d="M256 40C280 100 350 120 400 120M256 472C232 412 162 392 112 392" stroke="white" stroke-opacity="0.03" stroke-width="4"/>
-
-  <!-- 3. กลุ่มอักษร SQE สีทอง (Thai Contemporary Style) -->
-  <g filter="url(#gold_glow)">
-    <!-- ตัว S (Thai Motif Curve) -->
-    <path d="M110 240C110 200 130 170 170 170C210 170 230 200 230 220C230 250 170 270 170 300C170 320 190 350 230 350C250 350 270 340 280 320" 
-          stroke="url(#gold_grad)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
-    
-    <!-- ตัว Q (The Eye of Quality) -->
-    <ellipse cx="270" cy="260" rx="75" ry="85" stroke="url(#gold_grad)" stroke-width="26"/>
-    <path d="M315 325C340 360 380 380 410 375" stroke="url(#gold_grad)" stroke-width="26" stroke-linecap="round"/>
-    
-    <!-- ตัว E (Traditional Line Structure) -->
-    <path d="M380 175H460M385 260H445M380 345H460M385 175V345" 
-          stroke="url(#gold_grad)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-
-  <!-- 4. ประดับจุด "หยาดน้ำ" แบบไทย (Thai Drop Motif) -->
-  <circle cx="460" cy="175" r="10" fill="#FDE047"/>
-  <circle cx="110" cy="240" r="8" fill="#FDE047" fill-opacity="0.6"/>
-
-  <!-- การตั้งค่าสีทองและน้ำเงิน -->
+  <!-- 1. พื้นหลังมิติแสง (Deep Navy Depth) -->
   <defs>
-    <!-- ไล่เฉดสีน้ำเงินเข้ม -->
-    <linearGradient id="thai_navy_grad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0F172A"/>
-      <stop offset="1" stop-color="#020617"/>
-    </linearGradient>
+    <!-- รัศมีแสงตรงกลาง -->
+    <radialGradient id="bg_light" cx="50%" cy="50%" r="50%" fx="50%" fy="30%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
     
-    <!-- ไล่เฉดสีทองพรีเมียม -->
-    <linearGradient id="gold_grad" x1="110" y1="170" x2="460" y2="375" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#FDE047"/> <!-- สีทองสว่าง -->
-      <stop offset="0.5" stop-color="#D4AF37"/> <!-- สีทองเหลือง -->
-      <stop offset="1" stop-color="#B45309"/> <!-- สีทองแดง -->
+    <!-- สีทองแบบพรีเมียม -->
+    <linearGradient id="gold_metallic" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#B45309"/>
     </linearGradient>
 
-    <!-- เอฟเฟกต์แสงทองเรืองรอง -->
-    <filter id="gold_glow" x="70" y="140" width="430" height="280" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
+    <!-- เอฟเฟกต์เรืองแสงทอง -->
+    <filter id="premium_glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
   </defs>
+
+  <!-- วาดพื้นหลัง -->
+  <rect width="512" height="512" rx="120" fill="url(#bg_light)"/>
+  
+  <!-- ลายเส้นแสงขัดจางๆ เพิ่มความล้ำ (Subtle Tech Grid) -->
+  <circle cx="256" cy="256" r="200" stroke="white" stroke-opacity="0.03" stroke-width="1"/>
+  <path d="M0 256H512M256 0V512" stroke="white" stroke-opacity="0.02" stroke-width="1"/>
+
+  <!-- 2. กลุ่มอักษร SQE ออกแบบใหม่ให้อ่านง่าย -->
+  <g filter="url(#premium_glow)">
+    <!-- ตัว S: โครงสร้างชัดเจน ตวัดปลายแบบกนก -->
+    <path d="M100 230C100 170 185 165 185 205C185 220 150 230 120 250C90 270 95 330 180 335" 
+          stroke="url(#gold_metallic)" stroke-width="32" stroke-linecap="round"/>
+    <circle cx="100" cy="230" r="12" fill="url(#gold_metallic)"/> <!-- หัวอักษรไทย -->
+
+    <!-- ตัว Q: วงกลมมาตรฐาน หางตวัดเฉียงอ่านง่าย -->
+    <circle cx="270" cy="256" r="75" stroke="url(#gold_metallic)" stroke-width="32"/>
+    <path d="M315 315C335 335 350 355 375 355" 
+          stroke="url(#gold_metallic)" stroke-width="32" stroke-linecap="round"/>
+
+    <!-- ตัว E: ขีด 3 เส้นชัดเจน แต่มีความโค้งมน -->
+    <path d="M400 175H475M400 256H460M400 337H475M405 175V337" 
+          stroke="url(#gold_metallic)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="475" cy="175" r="10" fill="url(#gold_metallic)"/> <!-- จุดประดับปลาย -->
+  </g>
 </svg>
