@@ -1176,3 +1176,31 @@ body {
     color: white;
 }
 .result-item:active .v-code { color: #fff; }
+/* --- แก้ไขจุดที่มองไม่เห็นใน Light Mode --- */
+
+body.light-mode .log-title {
+    color: #0f172a !important; /* เปลี่ยนหัวข้อ ASM-BODY-BACK ให้เป็นสีเข้ม */
+}
+
+body.light-mode .vendor-name {
+    color: #0f172a !important; /* เปลี่ยนชื่อ Vendor ให้เป็นสีเข้ม */
+}
+
+body.light-mode .brand-title {
+    color: #0f172a !important; /* ชื่อแอปด้านบน */
+}
+
+body.light-mode .hero-banner h2 {
+    color: #ffffff !important; /* คงสีขาวไว้เฉพาะใน Banner ที่มีพื้นหลังสีเข้มอยู่แล้ว */
+}
+
+/* หากส่วนที่ Hilight สีน้ำเงินในภาพเป็นส่วนของ Log Card ให้ปรับพื้นหลังตัวหนังสือด้วย */
+body.light-mode .log-card {
+    border-left: 5px solid #2563eb !important; /* เพิ่มเส้นสีน้ำเงินด้านข้างแทนการใช้พื้นหลังเข้มเพื่อให้ดูสะอาดตา */
+}
+
+/* ปรับสีตัวอักษรของ Part Number ในหน้า Logbook ให้เข้มขึ้นเพื่อให้เห็นชัด */
+body.light-mode .log-partno {
+    color: #1e40af !important; /* สีน้ำเงินเข้ม */
+    font-weight: 700;
+}
