@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SQE support Mobile Pro - Standalone System v3.0</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- เชื่อมต่อไฟล์ Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<!-- ตั้งค่าสีแถบสถานะ (Status Bar) สำหรับ Chrome บน Android -->
+<meta name="theme-color" content="#1d4ed8">
+
+<!-- ตั้งค่าสำหรับ iOS (iPhone) ให้เป็นแบบ Full Screen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SQE Mobile">
+
+<!-- ไอคอนสำหรับ iPhone -->
+<link rel="apple-touch-icon" href="icon.svg">
+</head>
+<body>
+<header class="app-header">
+    <div class="header-inner">
+        <div class="brand">
+            <div class="brand-icon">🛡️</div>
+            <div>
+                <div class="brand-title">
+                    SQE support <span>Mobile Pro</span> <small>v3.0</small>
+                </div>
+                <p id="pageSubtitle">📝 บันทึกผลตรวจสอบ 5 หัวข้อมาตรฐาน</p>
+            </div>
+        </div>
+        <!-- เพิ่มส่วนนี้: กลุ่มปุ่มคำสั่ง -->
+        <div class="header-actions">
+            <button id="themeToggle" class="btn-theme-toggle" onclick="toggleTheme()">🌙</button>
+            <button class="btn-ai-header" onclick="openAiModal()">
+                ✨ <span class="ai-text">AI ผู้ช่วยตรวจ</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+    <main class="main-content">
+        <!-- PAGE 1: FORM INPUT -->
+        <section id="page-form" class="page-view active">
+            <div class="hero-banner banner-form">
+                <div class="banner-top">
+                    <div>
+                        <span class="step-badge">Step 1: Form Input</span>
+                        <h2>📝 SQE support Mobile Pro </h2>
+                    </div>
+                    <button class="btn-reset" onclick="clearForm()">🔄 ล้างฟอร์ม</button>
+                </div>
+                <div class="banner-bottom">
+                    <span>⚡ มีปัญหาคล้ายเดิม? เลือกจากรายการด่วน:</span>
+                    <button type="button" class="btn-toggle-presets" onclick="togglePresets()">⚡ เปิด Presets ด่วน</button>
+                </div>
+                <div id="presetDrawer" class="preset-drawer hidden"></div>
+            </div>
+
+            <form id="qcForm" onsubmit="return false;" class="card-panel">
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label>1. Part Name (ชื่อชิ้นงาน) <span class="req">*</span></label>
+                        <input type="text" id="partName" class="form-input" placeholder="เช่น Front Bumper Bracket Assy" value="Front Bumper Bracket Assy">
+                    </div>
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label>2. Part Number (10 Digits) <span class="req">*</span></label>
+                            <span id="partNoBadge" class="badge-ok hidden">✓ OK 10 Digits</span>
+                        </div>
+                        <input type="text" id="partNumber" class="form-input font-mono text-amber" maxlength="12" placeholder="เช่น 865103V000" value="865103V000">
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+    <label>3. Vendor / Supplier (ผู้ผลิต) <span class="req">*</span></label>
+    <!-- ช่อง Input ที่เชื่อมกับ datalist -->
+    <input type="text" id="vendor" class="form-input" list="vendor-list" placeholder="พิมพ์เพื่อค้นหาชื่อหรือรหัสผู้ผลิต...">
+    
+    <!-- รายการที่จะถูก JavaScript เติมข้อมูลให้ -->
+    <datalist id="vendor-list"></datalist>
+</div>
+                    <div class="form-group">
+                        <label>4. Problem Line / Model (ไลน์ผลิต/รุ่น) <span class="req">*</span></label>
+                        <input type="text" id="model" class="form-input" list="model-list" placeholder="เช่น Model X-2026 / Line #4" value="Model X-2026 / Line #4 (Press Shop)">
+                        <datalist id="model-list">
+                            <option value="Model X-2026 / Line #4 (Press Shop)"></option>
+                            <option value="Model EV-GT / Line #2 (Assembly)"></option>
+                            <option value="Model X-2026 / Line #1 (Engine)"></option>
+                        </datalist>
+                    </div>
+                </div>
+
+                <!-- Topic 5 -->
+                <div class="qty-section">
+                    <div class="qty-header">
+                        <span class="qty-title">● 5. Inspection Quantities (คำนวณ Defect Rate อัตโนมัติ)</span>
+                        <span id="rateTag" class="rate-badge">Defect Rate: 1.40%</span>
+                    </div>
+ <div class="compact-qty-bar">
+    <!-- Total Inspected -->
+    <div class="qty-item">
+        <label><span class="icon">📦</span> TOTAL</label>
+        <input type="number" id="totalQty" class="mini-qty-input" value="2500" oninput="handleQty('totalQty')">
+    </div>
+
+    <!-- OK Pass -->
+    <div class="qty-item">
+        <label><span class="icon">✅</span> OK PASS</label>
+        <input type="number" id="okQty" class="mini-qty-input text-green" value="2465" oninput="handleQty('okQty')">
+    </div>
+
+    <!-- NG Defect -->
+    <div class="qty-item">
+        <label><span class="icon">❌</span> NG DEFECT</label>
+        <input type="number" id="ngQty" class="mini-qty-input text-red" value="35" oninput="handleQty('ngQty')">
+    </div>
+</div>
+
+                <div class="form-group box-desc">
+                    <div class="label-row">
+                        <label>Defect Description & Root Cause (รายละเอียดและตำแหน่งปัญหา)</label>
+                        <button type="button" class="btn-ai-small" onclick="openAiModal()">✨ ใช้ AI ช่วยเกลาข้อความ</button>
+                    </div>
+                    <textarea id="problemDesc" class="form-textarea" rows="3">Mounting hole pitch shifted by +0.35mm beyond tolerance limit.</textarea>
+                </div>
+
+<!-- แผงควบคุมส่วนท้าย (Footer Control Panel) -->
+<div class="footer-control-panel">
+    
+    <!-- แถวบน: 3 Dropdowns (กว้างเท่ากันเป๊ะ) -->
+    <div class="compact-action-grid">
+        <div class="action-item">
+            <label><span class="icon">⚠️</span> SEVERITY</label>
+            <select id="severity" class="mini-select">
+                <option value="Minor">🟢 Minor</option>
+                <option value="Major" selected>🟡 Major</option>
+                <option value="Critical">🔴 Critical</option>
+            </select>
+        </div>
+
+        <div class="action-item">
+            <label><span class="icon">🛠️</span> ACTION</label>
+            <select id="disposition" class="mini-select">
+                <option value="Hold Lot">⏸️ Hold</option>
+                <option value="Scrap/OK">✂️ Scrap/OK</option>
+                <option value="Sort 100%">🔍 Sort</option>
+                <option value="Return">📦 Return</option>
+            </select>
+        </div>
+
+        <div class="action-item">
+            <label><span class="icon">👤</span> INSPECTOR</label>
+            <select id="inspector" class="mini-select">
+                <option value="" disabled selected>เลือก...</option>
+                <option value="NATTHAWUT CHAISING">NATTHAWUT CHAISING</option>
+                <option value="SORNCHAI WONGJANTA">SORNCHAI WONGJANTA</option>
+                <option value="EUEANGKOON SEESANIT">EUEANGKOON SEESANIT</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- แถวล่าง: ปุ่มกด (ยืดเต็มความกว้างเท่ากับแถวบน) -->
+    <div class="footer-buttons">
+        <button type="button" class="btn-save-wide" onclick="saveToLogbook()">
+            💾 บันทึกลง Logbook
+        </button>
+        
+        <button type="button" class="btn-generate-wide" onclick="switchPage('output')">
+            ✨ จัดรูปแบบรายงาน & คัดลอกส่งไลน์ 
+        </button>
+    </div>
+</div>
+            </form>
+        </section>
+
+        <!-- PAGE 2: REPORT OUTPUT -->
+        <section id="page-output" class="page-view">
+            <div class="hero-banner banner-output">
+                <div class="banner-top">
+                    <div>
+                        <span class="step-badge step-green">Step 2: Report Output</span>
+                        <h2>✨ รายงานผลการตรวจสอบ QA/QC</h2>
+                    </div>
+                    <button class="btn-back" onclick="switchPage('form')">⬅ กลับไปแก้ไขฟอร์ม</button>
+                </div>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box"><span>Total Inspected</span><strong id="outTotal">2,500 pcs</strong></div>
+                <div class="stat-box stat-green"><span>Pass (OK)</span><strong id="outOk">2,465 pcs</strong></div>
+                <div class="stat-box stat-red"><span>Defect (NG)</span><strong id="outNg">35 pcs</strong></div>
+                <div class="stat-box stat-blue"><span>Defect Rate</span><strong id="outRate">1.40%</strong></div>
+            </div>
+
+            <div class="format-toolbar">
+                <span class="fmt-label">🛠️ เลือกรูปแบบรายงาน:</span>
+                <div class="fmt-pills">
+                    <button class="fmt-pill active" onclick="setFormat('standard', this)">📄 มาตรฐาน</button>
+                    <button class="fmt-pill" onclick="setFormat('chat', this)">💬 LINE / แชท</button>
+                    <button class="fmt-pill" onclick="setFormat('table', this)">📊 ตารางสรุป</button>
+                    <button class="fmt-pill" onclick="setFormat('bilingual', this)">🌐 ไทย / อังกฤษ</button>
+                    <button class="fmt-pill" onclick="setFormat('executive', this)">💼 ผู้บริหาร</button>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-topbar">
+                    <span>● SQE support_Report_Output.txt</span>
+                    <span id="fmtBadge" class="mode-badge">STANDARD MODE</span>
+                </div>
+                <pre id="reportText" class="code-box"></pre>
+            </div>
+
+            <div class="action-buttons">
+                <button id="btnCopyBig" class="btn-copy-big" onclick="copyReport()">📋 คัดลอกรายงานเพื่อส่ง LINE หรือ Email</button>
+                <div class="btn-grid-2">
+                    <button class="btn-dl" onclick="downloadTXT()">📥 ดาวน์โหลดไฟล์ .TXT</button>
+                    <button class="btn-share" onclick="shareLine()">📤 แชร์ผ่าน LINE</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 3: LOGBOOK -->
+        <section id="page-logbook" class="page-view">
+            <div class="hero-banner banner-logbook">
+                <div class="banner-top">
+                    <div>
+                        <span class="step-badge step-purple">Step 3: Logbook</span>
+                        <h2>📚 ฐานข้อมูลประวัติการตรวจสอบ QA/QC</h2>
+                    </div>
+                    <button class="btn-export-csv" onclick="exportCSV()">📥 Export CSV</button>
+                </div>
+            </div>
+
+            <div class="toolbar-card">
+                <div class="filter-row">
+                    <input type="text" id="searchLog" class="search-input" placeholder="🔍 ค้นหาชื่อชิ้นงาน, รหัส, ผู้ผลิต..." oninput="renderLogbook()">
+                    <select id="filterSeverity" class="filter-select" onchange="renderLogbook()">
+                        <option value="ALL">ระดับความรุนแรงทั้งหมด</option>
+                        <option value="Critical">🔴 Critical เท่านั้น</option>
+                        <option value="Major">🟡 Major เท่านั้น</option>
+                        <option value="Minor">🟢 Minor เท่านั้น</option>
+                    </select>
+                </div>
+                <div class="toolbar-actions">
+                    <span>แสดงผล Mobile Card View</span>
+                    <button class="btn-clear-logs" onclick="clearAllLogs()">🗑️ ล้างประวัติทั้งหมด</button>
+                </div>
+            </div>
+
+            <div id="logbookList" class="logbook-list"></div>
+        </section>
+
+        <!-- PAGE 4: ANALYTICS -->
+        <section id="page-analytics" class="page-view">
+            <div class="hero-banner banner-analytics">
+                <span class="step-badge step-amber">Step 4: Analytics Dashboard</span>
+                <h2>📊 วิเคราะห์ภาพรวมคุณภาพการผลิต (Executive View)</h2>
+            </div>
+            <div id="analyticsContent" class="analytics-container"></div>
+        </section>
+    </main>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <div class="nav-grid">
+            <button class="nav-btn active" id="tab-form" onclick="switchPage('form')">
+                <span class="nav-icon">📝</span>
+                <span class="nav-title">บันทึกผล</span>
+                <span class="nav-sub">Form Input</span>
+            </button>
+            <button class="nav-btn" id="tab-output" onclick="switchPage('output')">
+                <span class="nav-icon">✨</span>
+                <span class="nav-title">รายงาน</span>
+                <span class="nav-sub">Report Output</span>
+            </button>
+            <button class="nav-btn" id="tab-logbook" onclick="switchPage('logbook')">
+                <span class="nav-icon">📚</span>
+                <span class="nav-title">ประวัติ</span>
+                <span class="nav-sub">Logbook (<span id="logCount">0</span>)</span>
+            </button>
+            <button class="nav-btn" id="tab-analytics" onclick="switchPage('analytics')">
+                <span class="nav-icon">📊</span>
+                <span class="nav-title">วิเคราะห์</span>
+                <span class="nav-sub">Analytics</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- AI ASSISTANT MODAL -->
+    <div id="aiModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>🤖 AI QC Assistant (จำลองระบบอัจฉริยะ)</h3>
+                <button onclick="closeAiModal()" class="btn-close-modal">✖</button>
+            </div>
+            <div class="modal-body">
+                <p class="ai-intro">เลือกรูปแบบการปรับแต่งคำบรรยายข้อบกพร่องตามมาตรฐาน ISO/IATF:</p>
+                <div class="ai-modes">
+                    <button onclick="runAiSimulation('TH_EN')">🌐 ไทย/อังกฤษ มาตรฐาน</button>
+                    <button onclick="runAiSimulation('ROOT_CAUSE')">🔬 วิเคราะห์สาเหตุ 4M</button>
+                    <button onclick="runAiSimulation('JP_SPEC')">🇯🇵 สเปกญี่ปุ่น / LINE Alert</button>
+                </div>
+             <div id="aiResultBox" class="ai-result hidden"></div>
+
+<!-- เพิ่มปุ่มนี้เข้าไป -->
+<button id="btnApplyAi" class="btn-apply-ai hidden" onclick="applyAiResult()">
+    ✅ นำข้อความนี้ไปใช้ (Apply to Form)
+</button>
+        </div>
+    </div>
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>
