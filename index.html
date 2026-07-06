@@ -1270,12 +1270,19 @@ body {
                     </div>
                 </div>
 
-                <!-- Topic 5 -->
-                <div class="qty-section">
-                    <div class="qty-header">
-                        <span class="qty-title">● 5. Inspection Quantities (คำนวณ Defect Rate อัตโนมัติ)</span>
-                        <span id="rateTag" class="rate-badge">Defect Rate: 1.40%</span>
-                    </div>
+<!-- เพิ่มช่องที่ 5 ใหม่ -->
+<div class="form-group" style="margin-bottom: 1rem;">
+    <label>5. Defect Name (ชื่อข้อบกพร่อง) <span class="req">*</span></label>
+    <input type="text" id="defectName" class="form-input" placeholder="เช่น Deformed, Scratch, Burry" value="Deformed">
+</div>
+
+<!-- แก้เลขหัวข้อเดิมจาก 5 เป็น 6 -->
+<div class="qty-section">
+    <div class="qty-header">
+        <span class="qty-title">● 6. Inspection Quantities (คำนวณ Defect Rate อัตโนมัติ)</span>
+        <span id="rateTag" class="rate-badge">Defect Rate: 0.00%</span>
+    </div>
+    <!-- ... โค้ดส่วนช่องจำนวนคงเดิม ... -->
  <div class="compact-qty-bar">
     <!-- Total Inspected -->
     <div class="qty-item">
@@ -5056,6 +5063,7 @@ function generateReport() {
     const pNo = format10Digits(document.getElementById('partNumber').value || '-');
     const vendor = document.getElementById('vendor').value || '-';
     const model = document.getElementById('model').value || '-';
+    const defName = document.getElementById('defectName').value || '-'; // ดึงข้อมูลชื่อ Defect
     const total = parseInt(document.getElementById('totalQty').value) || 0;
     const ok = parseInt(document.getElementById('okQty').value) || 0;
     const ng = parseInt(document.getElementById('ngQty').value) || 0;
@@ -5079,6 +5087,7 @@ function generateReport() {
 🔢 รหัสชิ้นงาน: ${pNo}
 🏢 Supplier: ${vendor}
 🏭 ไลน์ผลิต/รุ่น: ${model}
+❌ ชื่อข้อบกพร่อง: ${defName}
 ================================
 📊 สรุปผลตรวจสอบ:
    • ตรวจสอบทั้งหมด: ${total.toLocaleString()} ชิ้น
@@ -5095,6 +5104,7 @@ function generateReport() {
 | Part Number       | ${pNo.padEnd(34)} |
 | Vendor            | ${vendor.slice(0, 34).padEnd(34)} |
 | Model / Line      | ${model.slice(0, 34).padEnd(34)} |
+| Defect Name       | ${defName.slice(0, 34).padEnd(34)} |
 +----------------------+------------------------------------+
 | Total Inspected      | ${total.toLocaleString().padEnd(34)} |
 | OK Quantity (Pass)   | ${ok.toLocaleString().padEnd(34)} |
@@ -5111,6 +5121,7 @@ function generateReport() {
 รหัสชิ้นงาน 10 หลัก (Part No.): ${pNo}
 ผู้ผลิต (Vendor): ${vendor}
 ไลน์ผลิต/รุ่น (Model/Line): ${model}
+ชื่อข้อบกพร่อง (Defect Name): ${defName}
 สรุปยอดตรวจสอบ (Inspection Quantities):
 • รวมทั้งหมด: ${total.toLocaleString()} ชิ้น | ผ่าน: ${ok.toLocaleString()} | ไม่ผ่าน: ${ng.toLocaleString()} [${rate}%]
 ============================================================
@@ -5124,6 +5135,7 @@ Part Name    : ${pName}
 Part Number  : ${pNo}
 Vendor       : ${vendor}
 Model / Line : ${model}
+Defect Name  : ${defName}
 Quantities   :
    - Total Inspected : ${total.toLocaleString()} pcs
    - OK Quantity     : ${ok.toLocaleString()} pcs
@@ -5231,6 +5243,7 @@ function saveToLogbook() {
         partNumber: document.getElementById('partNumber').value || '-',
         vendor: document.getElementById('vendor').value || '-',
         model: document.getElementById('model').value || '-',
+        defectName: document.getElementById('defectName').value || '-', // เพิ่มการบันทึกค่านี้
         totalQty: total,
         okQty: parseInt(document.getElementById('okQty').value) || 0,
         ngQty: ng,
@@ -5242,7 +5255,7 @@ function saveToLogbook() {
     logs.unshift(item);
     localStorage.setItem('qc_standalone_v3_logs', JSON.stringify(logs));
     updateBadge();
-    alert('✓ บันทึกผลการตรวจสอบลง Logbook เรียบร้อยแล้ว!');
+    showToast('✓ บันทึกลง Logbook เรียบร้อย', 'success');
 }
 
 function updateBadge() {
@@ -5255,7 +5268,12 @@ function renderLogbook() {
     const list = document.getElementById('logbookList');
     
     const filtered = logs.filter(l => {
-        const matchSearch = (l.partName||'').toLowerCase().includes(search) || (l.partNumber||'').toLowerCase().includes(search) || (l.vendor||'').toLowerCase().includes(search);
+        // เพิ่ม (l.defectName||'') ในการค้นหาเพื่อให้พิมพ์หาตามชื่อ Defect ได้
+        const matchSearch = (l.partName||'').toLowerCase().includes(search) || 
+                            (l.partNumber||'').toLowerCase().includes(search) || 
+                            (l.vendor||'').toLowerCase().includes(search) ||
+                            (l.defectName||'').toLowerCase().includes(search); 
+                            
         const matchSev = sev === 'ALL' || l.severity === sev;
         return matchSearch && matchSev;
     });
@@ -5273,6 +5291,13 @@ function renderLogbook() {
             </div>
             <div class="log-title">${item.partName}</div>
             <div class="log-partno">${format10Digits(item.partNumber)} | ${item.vendor}</div>
+            
+            <!-- เพิ่มบรรทัด Defect Name ตรงนี้ -->
+            <div style="font-size:0.85rem; color:#fde047; font-weight:800; margin-bottom:5px; display:flex; align-items:center; gap:5px;">
+                <span>❌ Defect:</span>
+                <span>${item.defectName || '-'}</span>
+            </div>
+
             <div class="log-desc">⚠️ ${item.problemDesc}</div>
             <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; margin-bottom:0.6rem;">
                 <span>ยอดตรวจ: ${item.totalQty.toLocaleString()} ชิ้น</span>
@@ -5289,18 +5314,32 @@ function renderLogbook() {
 function loadLog(id) {
     const item = logs.find(l => l.id === id);
     if (!item) return;
+
+    // ดึงค่าพื้นฐาน
     document.getElementById('partName').value = item.partName || '';
     document.getElementById('partNumber').value = item.partNumber || '';
     document.getElementById('vendor').value = item.vendor || '';
     document.getElementById('model').value = item.model || '';
+    
+    // ดึงค่า Defect Name (ชื่อข้อบกพร่อง) ที่เก็บไว้ใน Log
+    if (document.getElementById('defectName')) {
+        document.getElementById('defectName').value = item.defectName || '';
+    }
+
+    // ดึงค่าจำนวน
     document.getElementById('totalQty').value = item.totalQty || 0;
     document.getElementById('okQty').value = item.okQty || 0;
     document.getElementById('ngQty').value = item.ngQty || 0;
+    
+    // ดึงรายละเอียดอื่นๆ
     document.getElementById('problemDesc').value = item.problemDesc || '';
     if (item.severity) document.getElementById('severity').value = item.severity;
     if (item.disposition) document.getElementById('disposition').value = item.disposition;
+
+    // อัปเดต Rate และเปลี่ยนหน้า
     updateRate();
     switchPage('form');
+    showToast('โหลดข้อมูลสำเร็จ', 'info');
 }
 
 function deleteLog(id) {
@@ -5437,37 +5476,65 @@ function renderAnalytics() {
 
 function openAiModal() { document.getElementById('aiModal').classList.remove('hidden'); }
 function closeAiModal() { document.getElementById('aiModal').classList.add('hidden'); }
-
+    
 function runAiSimulation(mode) {
-    const raw = document.getElementById('problemDesc').value || 'ขนาดชิ้นงานคลาดเคลื่อนเกินเกณฑ์';
-    const part = document.getElementById('partName').value || 'ชิ้นงาน';
+    // 1. ดึงข้อมูลจากช่องต่างๆ ในฟอร์ม
+    const pName = document.getElementById('partName').value || 'Part Name';
+    const pNo = document.getElementById('partNumber').value || 'Part Number';
+    
+    // ดึงค่าจากช่อง "4. Problem Line / Model" (id คือ model) เพื่อใช้แทน OSA
+    const lineVal = document.getElementById('model').value || 'LINE'; 
+    
+    // ดึงค่าจากช่อง "5. Defect Name" ที่เพิ่มใหม่
+    const defectName = document.getElementById('defectName').value || 'found defect';
+    
+    const ng = document.getElementById('ngQty').value || '0';
+    const total = document.getElementById('totalQty').value || '0';
+    const detail = document.getElementById('problemDesc').value || ''; 
+
+    // 2. จัดรูปแบบวันที่ปัจจุบัน (ตัวอย่าง: 28 Jun'24)
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.toLocaleString('en-US', { month: 'short' });
+    const year = now.getFullYear().toString().slice(-2);
+    const dateStr = `${day} ${month}'${year}`;
+
     const box = document.getElementById('aiResultBox');
-    const applyBtn = document.getElementById('btnApplyAi'); // อ้างอิงปุ่มใหม่
+    const applyBtn = document.getElementById('btnApplyAi');
     
     box.classList.remove('hidden');
-    applyBtn.classList.remove('hidden'); // โชว์ปุ่ม Apply เมื่อ AI ทำงานเสร็จ
+    applyBtn.classList.remove('hidden'); 
     
     if (mode === 'TH_EN') {
-        box.innerHTML = `[TH] ตรวจพบข้อบกพร่องบริเวณ ${part}: ${raw} เกินค่าพิกัดความเผื่อที่กำหนด ต้องดำเนินการตรวจสอบและคัดแยกทันที\n\n[EN] Defect detected on ${part}: ${raw}. Immediate sorting and engineering review required according to IATF 16949 standards.`;
+        // รูปแบบภาษาอังกฤษ: On [Date] [Line] inform quality problem about [Part] / [No] found defect [Defect] : Part defect total = [NG] / [Total] Pcs
+        const enFormat = `On ${dateStr} ${lineVal} inform quality problem about ${pName} / ${pNo} found defect ${defectName} : Part defect total = ${ng} / ${total} Pcs`;
+
+        // รูปแบบภาษาไทย
+        const thText = `[TH] เมื่อวันที่ ${dateStr} ทาง ${lineVal} แจ้งปัญหาคุณภาพชิ้นงาน ${pName} (${pNo}) พบปัญหา ${defectName} จำนวนงานเสียรวม ${ng}/${total} ชิ้น`;
+
+        box.innerHTML = `${enFormat}\n\n${thText}`;
+
     } else if (mode === 'ROOT_CAUSE') {
-        box.innerHTML = `🔬 4M Root Cause Hypothesis for ${part}:\n1. [Machine] Clamping pressure on fixture jig shifted out of calibration.\n2. [Method] Sorting 100% current lot inventory and tag NG items immediately.\n3. [Material] Verify raw material hardness CoC from vendor.`;
+        // วิเคราะห์สาเหตุ 4M
+        box.innerHTML = `🔬 4M Analysis for ${defectName} (Line: ${lineVal}):\n- Man: Verify inspector standards.\n- Machine: Check fixture alignment at line.\n- Method: Active 100% sorting in progress.\n- Material: Review raw material lot.`;
     } else {
-        box.innerHTML = `🇯🇵 [LINE JP ALERT] Quality Problem Notification\nPart: ${part}\nDefect: ${raw}\nAction: Hold lot & notify supplier immediately.`;
+        // รูปแบบ Line Alert
+        box.innerHTML = `🇯🇵 [QC ALERT] Line: ${lineVal}\nDefect: ${defectName}\nPart: ${pName}\nQty: ${ng} NG / ${total} Total`;
     }
 }
-// ฟังก์ชันใหม่สำหรับส่งข้อความกลับไปที่ฟอร์ม
+
+// ฟังก์ชันสำหรับนำข้อความที่ AI เจน ไปใส่ในช่องรายละเอียดล่างสุด
 function applyAiResult() {
     const aiText = document.getElementById('aiResultBox').innerText;
     const targetField = document.getElementById('problemDesc');
     
     if (aiText) {
-        targetField.value = aiText; // ใส่ข้อความลงในช่อง Description
-        closeAiModal(); // ปิด Modal
-        
-        // เพิ่มเอฟเฟกต์กระพริบที่ช่องเพื่อให้รู้ว่าเปลี่ยนแล้ว (Optional)
+        targetField.value = aiText;
+        closeAiModal();
         targetField.style.borderColor = '#10b981';
         targetField.focus();
         setTimeout(() => { targetField.style.borderColor = '#475569'; }, 1000);
+        showToast('Apply ข้อความเรียบร้อย', 'success');
     }
 }
 // --- ระบบสลับโหมด Dark/Light ---
@@ -5687,7 +5754,14 @@ function selectVendor(code, name) {
     }
 }
 
-
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Service Worker registered'))
+      .catch(err => console.log('Service Worker failed', err));
+  });
+}
 </script>
 </body>
 </html>
